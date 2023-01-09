@@ -26,9 +26,10 @@
 				</c:if>
 				 
 				<td>
+					<div>${m.goodsCode}</div>
 					<div><img src="${pageContext.request.contextPath}/upload/${m.filename}" width="200" height="200"></div>
-					<div>${m.goodsName}</div>
-					<div>수정 삭제</div>
+					<div><a href="${pageContext.request.contextPath}/goods/goodsOne?goodsCode=${m.goodsCode}">${m.goodsName}</a></div>
+					<div>${m.goodsPrice}</div>
 				</td>
 			</c:forEach>
 		</tr>

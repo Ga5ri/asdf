@@ -17,16 +17,44 @@ import vo.GoodsImg;
 public class GoodsService {
 	private GoodsDao goodsDao;
 	private GoodsImgDao goodsImgDao;
-	// 굿즈리스트
+	// 상품 리스트
 	public ArrayList<HashMap<String, Object>> getItemList() {
 		ArrayList<HashMap<String, Object>> list = null;
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
-			System.out.println("db 접속1");
+			System.out.println("db 접속(goodsList)");
 			conn.setAutoCommit(false);
 			goodsDao = new GoodsDao();
 			list = goodsDao.selectItemList(conn);
+			conn.commit();
+		} catch(Exception e) {
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
+	
+	// 상품 상세보기
+	public ArrayList<HashMap<String, Object>> getGoodsOne(int goodsCode) {
+		ArrayList<HashMap<String, Object>> list = null;
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			System.out.println("db 접속(goodsList)");
+			conn.setAutoCommit(false);
+			goodsDao = new GoodsDao();
+			list = goodsDao.selectGoodsOne(conn, goodsCode);
 			conn.commit();
 		} catch(Exception e) {
 			try {
